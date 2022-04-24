@@ -1,0 +1,26 @@
+{
+  "name": "empbackend",
+  "version": "1.0.0",
+  "description": "App Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm run   --prefix electron-react-demo dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MSM",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^7.0.0",
+    "config": "^3.3.7",
+    "express": "^4.17.3",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15",
+    "prop-types": "^15.8.1",
+    "query-string": "^7.1.1",
+    "sequelize": "^6.17.0"
+  }
+}
