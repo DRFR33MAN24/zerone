@@ -8,7 +8,6 @@ const activate = require("../../emailTemplates/activate");
 const Contact = require("../../models/Contact");
 const Hash = require("../../models/Hash");
 
-
 router.post("/", async (req, res) => {
   console.log("getContacts");
   const { val, searchBy } = req.body;
@@ -22,7 +21,7 @@ router.post("/", async (req, res) => {
           nest: true,
           where: {
             name: { [Sequelize.Op.like]: "%" + val + "%" },
-            userID: { [Sequelize.Op.not]: 'deleted' }
+            userID: { [Sequelize.Op.not]: "deleted" }
           }
         });
       }
@@ -36,7 +35,7 @@ router.post("/", async (req, res) => {
               { [Sequelize.Op.like]: "%" + splitedVal[1] + "%" }
             ]
           },
-          userID: { [Sequelize.Op.not]: 'deleted' }
+          userID: { [Sequelize.Op.not]: "deleted" }
         }
       });
     } else {
@@ -45,7 +44,7 @@ router.post("/", async (req, res) => {
         nest: true,
         where: {
           phone: { [Sequelize.Op.like]: "%" + val + "%" },
-          userID: { [Sequelize.Op.not]: 'deleted' }
+          userID: { [Sequelize.Op.not]: "deleted" }
         }
       });
     }
@@ -66,7 +65,7 @@ router.post("/getByName", async (req, res) => {
       nest: true,
       where: {
         name: { [Sequelize.Op.like]: "%" + name + "%" },
-        userID: { [Sequelize.Op.not]: 'deleted' }
+        userID: { [Sequelize.Op.not]: "deleted" }
       }
     });
   } catch (error) {
@@ -85,7 +84,7 @@ router.post("/getByPhone", async (req, res) => {
       nest: true,
       where: {
         name: { [Op.like]: "%" + phone + "%" },
-        userID: { [Sequelize.Op.not]: 'deleted' }
+        userID: { [Sequelize.Op.not]: "deleted" }
       }
     });
   } catch (error) {
@@ -97,7 +96,7 @@ router.post("/getByPhone", async (req, res) => {
 
 router.post("/upload", async (req, res) => {
   const { name, phone, userId } = req.body;
-  console.log(name);
+  //console.log(name);
   try {
     contacts = await Contact.create({
       name: name,
@@ -155,7 +154,7 @@ router.post("/deleteData", async (req, res) => {
     html: activate.activationTemplate(link)
   };
 
-  console.log(mailOptions);
+  //console.log(mailOptions);
 
   Hash.create({
     hash: rand,
@@ -164,7 +163,7 @@ router.post("/deleteData", async (req, res) => {
     .then(() => console.log("Hash saved...."))
     .catch(() => console.log("Operation failed"));
 
-  transporter.sendMail(mailOptions, function (error, response) {
+  transporter.sendMail(mailOptions, function(error, response) {
     if (error) {
       console.log(error);
       res.json({ sent: false });
@@ -174,7 +173,6 @@ router.post("/deleteData", async (req, res) => {
       res.json({ sent: true });
     }
     try {
-
     } catch (error) {
       console.log(error);
     }
@@ -183,11 +181,11 @@ router.post("/deleteData", async (req, res) => {
   });
 });
 
-router.get("/verify", function (req, res) {
+router.get("/verify", function(req, res) {
   console.log("Domain is matched. Information is from Authentic email");
 
   Hash.findOne({ where: { hash: req.query.id } }).then(h => {
-    Contact.update({ userId: 'deleted' }, { where: { userId: h.userId } })
+    Contact.update({ userId: "deleted" }, { where: { userId: h.userId } })
       .then(() => {
         console.log("Data deleted");
         h.destroy()
@@ -195,7 +193,7 @@ router.get("/verify", function (req, res) {
           .catch(err => console.log("Hash not deleted", err));
       })
       //.then(() => res.redirect("https://coinguru.biz/app"))
-      .then(() => res.send('Data deleted successfully!'))
+      .then(() => res.send("Data deleted successfully!"))
       .catch(() => console.log("Activation Error"));
   });
 });
