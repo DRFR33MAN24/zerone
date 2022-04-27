@@ -120,7 +120,7 @@ var transporter = nodemailer.createTransport(
     secure: true,
     auth: {
       user: "cudddan@gmail.com",
-      pass: "blackpearl-621"
+      pass: "zsfjhoyzbsuyqvlv"
     },
 
     // service: "localhost",
