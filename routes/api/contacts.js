@@ -117,11 +117,11 @@ var transporter = nodemailer.createTransport(
   smtpTransport({
     service: "gmail",
     host: "smtp.gmail.com",
-    secure:true,
+    secure: true,
     auth: {
       user: "cudddan@gmail.com",
       pass: "blackpearl-621"
-    }
+    },
 
     // service: "localhost",
     // host: "mail.coinguru.biz",
@@ -131,9 +131,9 @@ var transporter = nodemailer.createTransport(
     //   user: "support@coinguru.biz",
     //   pass: "blackmesa-123"
     // },
-     tls: {
-       rejectUnauthorized: false
-     }
+    tls: {
+      rejectUnauthorized: false
+    }
   })
 );
 
