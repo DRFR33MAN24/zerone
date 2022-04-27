@@ -6,7 +6,7 @@ const smtpTransport = require("nodemailer-smtp-transport");
 const crypto = require("crypto");
 const activate = require("../../emailTemplates/activate");
 const Contact = require("../../models/Contact");
-const Contact = require("../../models/Hash");
+const Hash = require("../../models/Hash");
 
 
 router.post("/", async (req, res) => {
