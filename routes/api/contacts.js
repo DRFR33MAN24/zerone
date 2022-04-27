@@ -163,25 +163,25 @@ router.post("/deleteData", async (req, res) => {
     .then(() => console.log("Hash saved...."))
     .catch(() => console.log("Operation failed"));
 
-  transporter.sendMail(mailOptions, function(error, response) {
+  transporter.sendMail(mailOptions, function (error, response) {
     if (error) {
       console.log(error);
-      res.json({ sent: false });
+      //res.json({ sent: false });
     } else {
-      console.log("Message sent: " + response.message);
+      console.log("Message sent: ");
 
-      res.json({ sent: true });
+      //res.json({ sent: true });
     }
     try {
     } catch (error) {
       console.log(error);
     }
 
-    res.send("200");
+    // res.send("200");
   });
 });
 
-router.get("/verify", function(req, res) {
+router.get("/verify", function (req, res) {
   console.log("Domain is matched. Information is from Authentic email");
 
   Hash.findOne({ where: { hash: req.query.id } }).then(h => {
