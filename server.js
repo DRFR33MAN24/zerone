@@ -9,7 +9,7 @@ app.use(express.json());
 db.authenticate()
   .then(() => {
     console.log("Authenticated");
-    db.sync({ force: true });
+    db.sync({ force: false });
     //db.close();
   })
   .catch(err => {
