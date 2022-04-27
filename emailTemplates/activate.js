@@ -189,7 +189,7 @@ const activationTemplate = link => {
                     style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;"
                   >
                     <p style="margin: 0;">
-                      We're sorry your leaving us. First, you need to confirm your
+                      We're sorry you're leaving us. First, you need to confirm your
                       data deletion request. Just press the button below.
                     </p>
                   </td>
@@ -269,7 +269,7 @@ const activationTemplate = link => {
                     align="left"
                     style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;"
                   >
-                    <p style="margin: 0;">Cheers,<br />Zerone Team</p>
+                    <p style="margin: 0;">Cheers,<br />ZERONE TEAM</p>
                   </td>
                 </tr>
               </table>
