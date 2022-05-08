@@ -39,13 +39,13 @@ router.post("/", async (req, res) => {
         },
       });
     } else {
-      let phone = val.replace("-", "").replace("+", "");
+      let phone = val.split(1).replace("-", "").replace("+", "");
       contacts = await Contact.findAll({
         raw: true,
         nest: true,
         where: {
           phone: {
-            [Sequelize.Op.and]: [
+            [Sequelize.Op.or]: [
               { [Sequelize.Op.like]: "%" + val + "%" },
               {
                 [Sequelize.Op
