@@ -28,6 +28,7 @@ router.post("/", async (req, res) => {
       contacts = await Contact.findAll({
         raw: true,
         nest: true,
+        limit: 30,
         where: {
           name: {
             [Sequelize.Op.and]: [
@@ -43,6 +44,7 @@ router.post("/", async (req, res) => {
       contacts = await Contact.findAll({
         raw: true,
         nest: true,
+        limit: 30,
         where: {
           phone: {
             [Sequelize.Op.and]: [
@@ -72,6 +74,7 @@ router.post("/getByName", async (req, res) => {
     contacts = await Contact.findAll({
       raw: true,
       nest: true,
+      limit: 30,
       where: {
         name: { [Sequelize.Op.like]: "%" + name + "%" },
         userID: { [Sequelize.Op.not]: "deleted" },
@@ -91,6 +94,7 @@ router.post("/getByPhone", async (req, res) => {
     contacts = await Contact.findAll({
       raw: true,
       nest: true,
+      limit: 30,
       where: {
         name: { [Op.like]: "%" + phone + "%" },
         userID: { [Sequelize.Op.not]: "deleted" },
