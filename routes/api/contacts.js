@@ -19,6 +19,7 @@ router.post("/", async (req, res) => {
         contacts = await Contact.findAll({
           raw: true,
           nest: true,
+          limit: 30,
           where: {
             name: { [Sequelize.Op.like]: "%" + val + "%" },
             userID: { [Sequelize.Op.not]: "deleted" },
