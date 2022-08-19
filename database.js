@@ -22,6 +22,11 @@ const { Sequelize } = require("sequelize");
 
 module.exports = new Sequelize("drfr33man24", "drfr33man24", "blackmesa-123", {
   host: "localhost",
-  dialect: "mysql"
+  dialect: "mysql",
+  pool: {
+    max: 70,
+    min: 0,
+    acquire: 30000,
+    idle: 10000,
+  },
 });
-
