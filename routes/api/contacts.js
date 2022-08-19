@@ -41,21 +41,19 @@ router.post("/", async (req, res) => {
         },
       });
     } else {
-      let phone = val.split(1).replace("-", "").replace("+", "");
+      let phone = val.substring(1).replace("-", "").replace("+", "");
       contacts = await Contact.findAll({
         raw: true,
         nest: true,
         limit: 30,
         where: {
-          phone: {
-            [Sequelize.Op.or]: [
-              { [Sequelize.Op.like]: "%" + val + "%" },
-              {
-                [Sequelize.Op
-                  .regexp]: `^(\+|00)[1-9]{1,3}([\-\(\)\.]?|${val})|${val}`,
-              },
-            ],
-          },
+          phone: 
+//              { [Sequelize.Op.like]: "%" + val + "%" },
+		Sequelize.where(
+        Sequelize.fn('replace', Sequelize.col('phone'), '-', ''), {
+          [Sequelize.Op.like]: `%${val}%`,
+        },
+      ),
           userID: { [Sequelize.Op.not]: "deleted" },
         },
       });
