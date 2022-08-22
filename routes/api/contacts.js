@@ -21,8 +21,7 @@ router.post("/", async (req, res) => {
           nest: true,
           limit: 30,
           where: {
-            name: { [Sequelize.Op.like]: "%" + val + "%" },
-            userID: { [Sequelize.Op.not]: "deleted" },
+            name: { [Sequelize.Op.like]: val },
           },
         });
       }
@@ -31,13 +30,7 @@ router.post("/", async (req, res) => {
         nest: true,
         limit: 30,
         where: {
-          name: {
-            [Sequelize.Op.and]: [
-              { [Sequelize.Op.like]: "%" + splitedVal[0] + "%" },
-              { [Sequelize.Op.like]: "%" + splitedVal[1] + "%" },
-            ],
-          },
-          userID: { [Sequelize.Op.not]: "deleted" },
+            name: { [Sequelize.Op.like]: val },
         },
       });
     } else {
@@ -45,16 +38,9 @@ router.post("/", async (req, res) => {
       contacts = await Contact.findAll({
         raw: true,
         nest: true,
-        limit: 30,
+        limit: 10,
         where: {
-          phone: 
-//              { [Sequelize.Op.like]: "%" + val + "%" },
-		Sequelize.where(
-        Sequelize.fn('replace', Sequelize.col('phone'), '-', ''), {
-          [Sequelize.Op.like]: `%${val}%`,
-        },
-      ),
-          userID: { [Sequelize.Op.not]: "deleted" },
+            phone: { [Sequelize.Op.like]: val },
         },
       });
     }
@@ -76,7 +62,6 @@ router.post("/getByName", async (req, res) => {
       limit: 30,
       where: {
         name: { [Sequelize.Op.like]: "%" + name + "%" },
-        userID: { [Sequelize.Op.not]: "deleted" },
       },
     });
   } catch (error) {
@@ -95,8 +80,7 @@ router.post("/getByPhone", async (req, res) => {
       nest: true,
       limit: 30,
       where: {
-        name: { [Op.like]: "%" + phone + "%" },
-        userID: { [Sequelize.Op.not]: "deleted" },
+        name: { [Op.like]:  phone },
       },
     });
   } catch (error) {
@@ -108,11 +92,15 @@ router.post("/getByPhone", async (req, res) => {
 
 router.post("/upload", async (req, res) => {
   const { name, phone, userId } = req.body;
-  //console.log(name);
+	let phn;
+	if(phone){
+
+       phn = phone.replace("-", "").replace("+", "");
+	}
   try {
     contacts = await Contact.create({
       name: name,
-      phone: phone,
+      phone: phn,
       userId: userId,
     });
   } catch (error) {
