@@ -20,8 +20,9 @@ router.post("/", async (req, res) => {
           raw: true,
           nest: true,
           limit: 30,
-          where: {
-            name: { [Sequelize.Op.like]: val },
+          where: Sequelize.literal("MATCH (name) AGAINST (:value)"),
+          replacements: {
+            value: val,
           },
         });
       }
@@ -29,8 +30,9 @@ router.post("/", async (req, res) => {
         raw: true,
         nest: true,
         limit: 30,
-        where: {
-            name: { [Sequelize.Op.like]: val },
+        where: Sequelize.literal("MATCH (name) AGAINST (:value)"),
+        replacements: {
+          value: val,
         },
       });
     } else {
@@ -39,8 +41,9 @@ router.post("/", async (req, res) => {
         raw: true,
         nest: true,
         limit: 10,
-        where: {
-            phone: { [Sequelize.Op.like]: val },
+        where: Sequelize.literal("MATCH (phone) AGAINST (:value)"),
+        replacements: {
+          value: val,
         },
       });
     }
@@ -80,7 +83,7 @@ router.post("/getByPhone", async (req, res) => {
       nest: true,
       limit: 30,
       where: {
-        name: { [Op.like]:  phone },
+        name: { [Op.like]: phone },
       },
     });
   } catch (error) {
@@ -92,11 +95,10 @@ router.post("/getByPhone", async (req, res) => {
 
 router.post("/upload", async (req, res) => {
   const { name, phone, userId } = req.body;
-	let phn;
-	if(phone){
-
-       phn = phone.replace("-", "").replace("+", "");
-	}
+  let phn;
+  if (phone) {
+    phn = phone.replace("-", "").replace("+", "");
+  }
   try {
     contacts = await Contact.create({
       name: name,
